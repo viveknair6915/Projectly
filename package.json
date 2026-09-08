@@ -1,0 +1,31 @@
+{
+  "name": "projectly-platform",
+  "version": "1.0.0",
+  "description": "Projectly — Your Team’s Work, Organized. Full-Stack Project Management and Productivity Platform",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"cyan.bold,magenta.bold\" \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "build": "npm run build --prefix server && npm run build --prefix client",
+    "seed": "npm run seed --prefix server",
+    "start": "npm run start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "project-management",
+    "kanban",
+    "react",
+    "express",
+    "mongodb",
+    "typescript",
+    "productivity"
+  ],
+  "author": "Projectly Team",
+  "license": "MIT"
+}
