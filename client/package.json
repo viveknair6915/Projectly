@@ -19,7 +19,6 @@
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
-    "@esbuild/win32-x64": "^0.28.2",
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
