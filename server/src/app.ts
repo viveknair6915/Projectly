@@ -28,6 +28,15 @@ export const createApp = () => {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  app.get('/', (req: Request, res: Response) => {
+    res.json({
+      service: 'Projectly API Engine',
+      status: 'online',
+      health: '/api/health',
+      version: '1.0.0',
+    });
+  });
+
   app.get('/api/health', (req: Request, res: Response) => {
     res.json({
       status: 'ok',
