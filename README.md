@@ -2,6 +2,10 @@
 
 Projectly is a production-ready, full-stack team project management and productivity platform designed to help teams plan projects, manage tasks via interactive Kanban boards, collaborate with team members, and track real-time progress from a unified workspace.
 
+- **Live Web Application**: [https://projectly-client.vercel.app/](https://projectly-client.vercel.app/)
+- **Live Backend API**: [https://projectly-api-ga1h.onrender.com/](https://projectly-api-ga1h.onrender.com/)
+- **API Health Check**: [https://projectly-api-ga1h.onrender.com/api/health](https://projectly-api-ga1h.onrender.com/api/health)
+
 ---
 
 ## Application Walkthrough & Screenshots
@@ -48,7 +52,32 @@ Personalized workspace view demonstrating role-based access control, task assign
 
 ---
 
-## Features
+## Live Deployment Links
+
+| Resource | URL | Status |
+| :--- | :--- | :--- |
+| **Production Frontend (Vercel)** | [https://projectly-client.vercel.app/](https://projectly-client.vercel.app/) | Active |
+| **Production Backend (Render)** | [https://projectly-api-ga1h.onrender.com/](https://projectly-api-ga1h.onrender.com/) | Active |
+| **API Health Status** | [https://projectly-api-ga1h.onrender.com/api/health](https://projectly-api-ga1h.onrender.com/api/health) | Online |
+
+---
+
+## Demo Accounts
+
+All seeded demo accounts share the password: `password123`
+
+| Name | Email | Role | Department |
+| :--- | :--- | :--- | :--- |
+| Alex Rivera | alex@projectly.dev | ADMIN | Core Product |
+| Sarah Chen | sarah@projectly.dev | MEMBER | Frontend Engineering |
+| Marcus Vance | marcus@projectly.dev | MEMBER | Infrastructure |
+| Elena Rostova | elena@projectly.dev | MEMBER | Design System |
+
+*(The login screen also provides 1-Click Demo buttons to automatically populate credentials.)*
+
+---
+
+## Core Features
 
 - **User Authentication & RBAC**: JWT session authorization with bcrypt password hashing and tiered permissions (Owner, Admin, Member).
 - **Project Management**: Full project lifecycle management (Create, Read, Update, Archive, Delete) with status tracking, priority flags, budget, and dates.
@@ -74,36 +103,40 @@ Personalized workspace view demonstrating role-based access control, task assign
 - **State & Data Fetching**: TanStack Query (React Query v5), Axios
 - **Routing**: React Router DOM v6
 - **Icons**: Lucide React
+- **Hosting**: Vercel
 
 ### Backend
-- **Runtime**: Node.js (v18+ or v22+)
+- **Runtime**: Node.js
 - **Framework**: Express.js
 - **Language**: TypeScript
-- **Database**: MongoDB with Mongoose ODM
+- **Database**: MongoDB Atlas with Mongoose ODM
 - **Authentication**: JSON Web Tokens (JWT) & bcryptjs
 - **Validation**: Zod schema validation
 - **CORS**: cors middleware
+- **Hosting**: Render
 
 ---
 
 ## System Architecture
 
 ```text
-[ React Client (Vite + TypeScript) ]
+[ React Client (Vercel) ]
+  https://projectly-client.vercel.app/
                 │
-         HTTP / REST API (Axios + TanStack Query)
+         HTTPS / REST API (Axios + TanStack Query)
                 │
                 ▼
-[ Express Server (TypeScript + Middleware) ]
+[ Express Server (Render) ]
+  https://projectly-api-ga1h.onrender.com/
    ├── Authentication Guard (JWT Verification)
    ├── Request Validation (Zod Schemas)
    ├── Controllers (Business Logic)
    └── Services (Data Transformation & Audit Logging)
                 │
-         Mongoose ODM Queries
+         Mongoose ODM Queries (TLS/SSL)
                 │
                 ▼
-[ MongoDB Database (Atlas or Local Instance) ]
+[ MongoDB Atlas Managed Database ]
    ├── Users Collection
    ├── Projects Collection
    ├── Tasks Collection
@@ -136,29 +169,17 @@ Projectly/
 │   ├── tailwind.config.js
 │   ├── tsconfig.json
 │   ├── tsconfig.node.json
+│   ├── vercel.json
 │   ├── vite.config.ts
 │   └── src/
 │       ├── App.tsx
 │       ├── index.css
 │       ├── main.tsx
 │       ├── api/
-│       │   ├── client.ts
-│       │   └── index.ts
 │       ├── components/
-│       │   ├── common/
-│       │   ├── kanban/
-│       │   ├── layout/
-│       │   └── modals/
 │       ├── context/
-│       │   └── AuthContext.tsx
 │       ├── pages/
-│       │   ├── DashboardPage.tsx
-│       │   ├── LoginPage.tsx
-│       │   ├── ProjectDetailPage.tsx
-│       │   ├── ProjectsPage.tsx
-│       │   └── RegisterPage.tsx
 │       └── types/
-│           └── index.ts
 └── server/
     ├── package.json
     ├── tsconfig.json
@@ -167,50 +188,27 @@ Projectly/
         ├── app.ts
         ├── server.ts
         ├── config/
-        │   └── db.ts
         ├── controllers/
-        │   ├── auth.controller.ts
-        │   ├── comment.controller.ts
-        │   ├── dashboard.controller.ts
-        │   ├── project.controller.ts
-        │   └── task.controller.ts
         ├── middleware/
-        │   ├── auth.middleware.ts
-        │   └── error.middleware.ts
         ├── models/
-        │   ├── activity.model.ts
-        │   ├── comment.model.ts
-        │   ├── project.model.ts
-        │   ├── task.model.ts
-        │   └── user.model.ts
         ├── routes/
-        │   ├── auth.routes.ts
-        │   ├── comment.routes.ts
-        │   ├── dashboard.routes.ts
-        │   ├── index.ts
-        │   ├── project.routes.ts
-        │   └── task.routes.ts
         ├── scripts/
-        │   └── seed.ts
         ├── services/
-        │   └── activity.service.ts
         └── utils/
-            ├── jwt.ts
-            └── validators.ts
 ```
 
 ---
 
-## Installation & Setup
+## Local Installation & Setup
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- npm (v9 or higher)
+- Node.js (v18+)
+- npm (v9+)
 - MongoDB (local service or MongoDB Atlas URI)
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
+git clone https://github.com/viveknair6915/Projectly.git
 cd Projectly
 ```
 
@@ -218,9 +216,8 @@ cd Projectly
 ```bash
 npm run install:all
 ```
-*(Or install root, server, and client packages individually with `npm install`, `npm install --prefix server`, `npm install --prefix client`)*
 
-### 3. Environment Variables
+### 3. Configure Environment Variables
 Copy `.env.example` to `server/.env`:
 ```bash
 cp server/.env.example server/.env
@@ -251,3 +248,59 @@ npm run dev
 - Client Application: http://localhost:5173
 - Backend REST API: http://localhost:5000
 - API Health Status: http://localhost:5000/api/health
+
+---
+
+## Production Build
+
+To verify and compile both client and server for production deployment:
+```bash
+npm run build
+```
+- Compiles backend TypeScript into `server/dist/`
+- Bundles frontend assets into `client/dist/`
+
+To launch the compiled server in production:
+```bash
+npm run start
+```
+
+---
+
+## Deployment Configuration
+
+### Backend (Render)
+- **Root Directory**: `server`
+- **Build Command**: `npm install && npm run build`
+- **Start Command**: `npm run start`
+- **Environment Variables**:
+  - `NODE_ENV` = `production`
+  - `PORT` = `5000`
+  - `MONGODB_URI` = `<your-mongodb-atlas-connection-string>`
+  - `JWT_SECRET` = `<your-jwt-secret>`
+  - `JWT_EXPIRES_IN` = `7d`
+  - `CLIENT_URL` = `https://projectly-client.vercel.app`
+
+### Frontend (Vercel)
+- **Root Directory**: `client`
+- **Framework**: `Vite`
+- **Build Command**: `npm run build`
+- **Output Directory**: `dist`
+- **Environment Variables**:
+  - `VITE_API_URL` = `https://projectly-api-ga1h.onrender.com`
+
+---
+
+## Security Practices
+
+- **Password Hashing**: Secure salted password encryption using `bcryptjs`.
+- **JWT Authorization**: Bearer token authentication validated on protected endpoints via Express middleware.
+- **Request Validation**: Incoming payloads strictly validated with Zod schemas.
+- **Credential Protection**: Database connection strings and token secrets managed via environment variables and excluded from version control.
+- **Resource Ownership**: Access control validation enforcing role permissions before mutation operations.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
